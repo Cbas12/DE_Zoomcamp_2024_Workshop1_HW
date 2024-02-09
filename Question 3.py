@@ -22,11 +22,14 @@ port = 5432
 db = "people_db"
 
 # define the connection to load to. 
-pipeline = dlt.pipeline( destination=postgres(credentials='postgresql://'+str(user)+':'+str(password)+'@'+str(host)+':'+str(port)+'/'+str(db)) )
+pipeline = dlt.pipeline(
+    destination=postgres(credentials='postgresql://'+str(user)+':'+str(password)+'@'+str(host)+':'+str(port)+'/'+str(db)) ,
+    dataset_name="people_dataset"
+)
 
 # run the pipeline with default settings, and capture the outcome
-info = pipeline.run(data=people_1(),write_disposition="replace", table_name="people_1")
+info = pipeline.run(data=people_1(),write_disposition="replace", table_name="people_q3")
 print(info)
 
-append = pipeline.run(data=people_2(),write_disposition="append", table_name="people_1")
+append = pipeline.run(data=people_2(),write_disposition="append", table_name="people_q3")
 print(append)
